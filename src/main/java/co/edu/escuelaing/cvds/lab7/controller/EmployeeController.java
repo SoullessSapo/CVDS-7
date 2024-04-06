@@ -14,6 +14,11 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @GetMapping("/")
+    public List<Employee> getAllEmployees(){
+        return employeeRepository.findAll();
+    }
+
     @GetMapping("/employee_name")
     public List<Employee> getEmployeeName(@RequestParam String firstName, @RequestParam String lastName){
         return employeeRepository.findByNameOrSurname(firstName, lastName);
