@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/employee/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
+    public Employee updateEmployee(@PathVariable String id, @RequestBody Employee updatedEmployee) {
         return employeeRepository.findById(id)
                 .map(employee -> {
                     employee.setFirstName(updatedEmployee.getFirstName());
@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
+    public void deleteEmployee(@PathVariable String id) {
         employeeRepository.deleteById(id);
     }
 }

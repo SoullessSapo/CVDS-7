@@ -4,13 +4,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "EMPLOYEE")
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
-    private Long employeeId;
+    private String employeeId;
 
     @Column(name = "FirstName")
     private String firstName;
@@ -24,54 +28,11 @@ public class Employee {
     @Column(name = "Salary")
     private Double salary;
 
-    public Employee() {
-    }
-
-    public Employee(Long employeeId, String firstName, String lastName, String role, Double salary) {
+    public Employee(String employeeId, String firstName, String lastName, String role, Double salary) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.salary = salary;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Double salary) {
         this.salary = salary;
     }
 }
