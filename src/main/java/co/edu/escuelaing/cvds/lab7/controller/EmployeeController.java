@@ -2,6 +2,7 @@ package co.edu.escuelaing.cvds.lab7.controller;
 
 import co.edu.escuelaing.cvds.lab7.model.Employee;
 import co.edu.escuelaing.cvds.lab7.repository.EmployeeRepository;
+import co.edu.escuelaing.cvds.lab7.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,17 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeService employeeService;
 
-    @GetMapping("/")
+    @GetMapping("/employees")
     public List<Employee> getAllEmployees(){
-        return employeeRepository.findAll();
+        return this.employeeService.getAllEmployees();
+    }
+
+    @GetMapping("/employee/{id}")
+    public Employee getAllEmployees(@PathVariable String id){
+        return this.employeeService.getEmployeebyid(id);
     }
 
     @GetMapping("/employee_name")
@@ -24,12 +32,12 @@ public class EmployeeController {
         return employeeRepository.findByNameOrSurname(firstName, lastName);
     }
 
-    @PostMapping("/employee")
-    public Employee createEmployee(@RequestBody Employee newEmployee) {
-        return employeeRepository.save(newEmployee);
+    @PostMapping("/addEmployee")
+    public void createEmployee(@RequestBody Employee newEmployee) {
+        employeeService.addEmployee(newEmployee);
     }
 
-    @PutMapping("/employee/{id}")
+    @PutMapping("/update/{id}")
     public Employee updateEmployee(@PathVariable String id, @RequestBody Employee updatedEmployee) {
         return employeeRepository.findById(id)
                 .map(employee -> {
@@ -44,8 +52,8 @@ public class EmployeeController {
                 });
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteEmployee(@PathVariable String id) {
-        employeeRepository.deleteById(id);
+        employeeService.deleteEmployee(id);
     }
 }
