@@ -19,5 +19,5 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
     public List<Employee> getAllEmployees() {return employeeRepository.findAll();}
-    public Employee getEmployeebyid(String id){return employeeRepository.getReferenceById(id);}
+    public Employee getEmployeebyid(String id){return employeeRepository.findById(id).get();}
 }

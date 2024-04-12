@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/employee")
 public class EmployeeController {
-
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
@@ -22,8 +22,8 @@ public class EmployeeController {
         return this.employeeService.getAllEmployees();
     }
 
-    @GetMapping("/employee/{id}")
-    public Employee getAllEmployees(@PathVariable String id){
+    @GetMapping("/{id}")
+    public Employee getAllEmployees(@PathVariable("id") String id){
         return this.employeeService.getEmployeebyid(id);
     }
 
@@ -43,7 +43,6 @@ public class EmployeeController {
                 .map(employee -> {
                     employee.setFirstName(updatedEmployee.getFirstName());
                     employee.setLastName(updatedEmployee.getLastName());
-                    // Set other fields as needed
                     return employeeRepository.save(employee);
                 })
                 .orElseGet(() -> {
