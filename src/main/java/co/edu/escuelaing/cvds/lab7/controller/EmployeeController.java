@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/employee")
 public class EmployeeController {
     @Autowired
@@ -21,12 +21,10 @@ public class EmployeeController {
     public List<Employee> getAllEmployees(){
         return this.employeeService.getAllEmployees();
     }
-
     @GetMapping("/{id}")
     public Employee getAllEmployees(@PathVariable("id") String id){
         return this.employeeService.getEmployeebyid(id);
     }
-
     @GetMapping("/employee_name")
     public List<Employee> getEmployeeName(@RequestParam String firstName, @RequestParam String lastName){
         return employeeRepository.findByNameOrSurname(firstName, lastName);
@@ -43,6 +41,8 @@ public class EmployeeController {
                 .map(employee -> {
                     employee.setFirstName(updatedEmployee.getFirstName());
                     employee.setLastName(updatedEmployee.getLastName());
+                    employee.setRole(updatedEmployee.getRole());
+                    employee.setSalary(updatedEmployee.getSalary());
                     return employeeRepository.save(employee);
                 })
                 .orElseGet(() -> {

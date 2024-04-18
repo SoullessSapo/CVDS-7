@@ -12,9 +12,7 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository){
         this.employeeRepository = employeeRepository;
     }
-    public void addEmployee(Employee employee){
-        employeeRepository.save(employee);
-    }
+    public void addEmployee(Employee employee){employeeRepository.save(employee);}
     public void deleteEmployee(String id){
         employeeRepository.deleteById(id);
     }
